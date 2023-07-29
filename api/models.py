@@ -11,6 +11,7 @@ class Blog(models.Model):
     date_created = models.DateTimeField('date published', default=now)
     date_updated = models.DateTimeField('date updated')
     body = models.TextField()
+    image = models.ImageField(upload_to='images/')
     
     def __str__(self):
         return self.title
@@ -22,8 +23,8 @@ class Blog(models.Model):
         return self.pub_date.strftime('%b %e %Y')
     
 class Comment(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
     date_created = models.DateTimeField('date published', default=now)
     
@@ -31,14 +32,24 @@ class Comment(models.Model):
         return self.body[:100]
 
 class Like(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='likes')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.blog.title
+class Reply(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    date_created = models.DateTimeField('date published', default=now)
+    
+    def __str__(self):
+        return self.body[:100]
     
 class Dislike(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='dislikes')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.blog.title
     
+
+#reply model

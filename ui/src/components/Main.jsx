@@ -1,12 +1,39 @@
-import React from 'react'
+import { React, useState, useEffect}  from 'react'
 import Header from './Header'
-import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook,faTwitter,faInstagram } from '@fortawesome/free-brands-svg-icons'
+import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 const Main = () => {
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const itemsPerPage = 10;
+  useEffect(() => {
+  axios.get('http://localhost:8000')
+  .then((res) => {
+    setData(res.data);
+    
+    setTotalPages(Math.ceil(res.data.length / itemsPerPage));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  },
 
-return (
+
+
+[]);
+
+
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const subset = data.slice(startIndex, endIndex);
+  const handlePageChange = (selectedPage) => {
+  setCurrentPage(selectedPage.selected);
+  };
+  return (
   <>
   <Header/>
     <main>
@@ -16,6 +43,22 @@ return (
         <h1 className="title">Latest Blog Post</h1>
         <div className="recent-blog-wrapper">
 
+{/* start the fetch here */}
+{subset.map((item) => (
+  <>
+  <div key={item.id}>{item.title}</div>
+  <div >{item.description}</div>
+  <div >{item.body}</div>
+  <div >{item.author}</div>
+  <div >{item.date_created}</div>
+  </>
+))}
+<ReactPaginate
+pageCount={totalPages}
+onPageChange={handlePageChange}
+forcePage={currentPage}/>
+
+{/* endthe fetch here */}
           {/* start */}
           <div className="recent-blog-box shadow" tabIndex="0">
             <figure className="img-box">

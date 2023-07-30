@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useRef } from 'react'
 import {NavLink} from 'react-router-dom'
-import {faBars} from '@fortawesome/free-solid-svg-icons'
+import {faBars, faSearch} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Nav = () => {
@@ -33,6 +33,12 @@ const Nav = () => {
     <nav className={stickyNav ? "sticky" : ""}>
         <div className="nav-wrapper">
             <h1 className="logo">sewonet <span>blog</span></h1>
+            <form action="#" className='search-form'>
+                <input type="search" placeholder='search' required />
+                <button className="search-btn" type='submit'>
+                    <FontAwesomeIcon icon={faSearch}/>
+                </button>
+            </form>
             <ul className="nav-list" ref={mobileNavRef}>
                 <li>
                     <NavLink to="/">Home</NavLink>
@@ -42,6 +48,9 @@ const Nav = () => {
                 </li>
                 <li>
                     <NavLink to="/contact">Contact</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/login">Login</NavLink>
                 </li>
             </ul>
             <button className="mobile-nav-btn" aria-label='mobile navigation toggle button' onClick={mobileNavToggle}>

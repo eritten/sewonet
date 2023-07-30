@@ -1,17 +1,19 @@
 import { React, useState, useEffect}  from 'react'
 import Header from './Header'
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook,faTwitter,faInstagram } from '@fortawesome/free-brands-svg-icons'
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
 const Main = () => {
+
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const itemsPerPage = 10;
   useEffect(() => {
-  axios.get('http://localhost:8000')
+  axios.get('http://localhost:8000/post/')
   .then((res) => {
     setData(res.data);
     
@@ -22,10 +24,7 @@ const Main = () => {
   });
   },
 
-
-
 []);
-
 
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -44,13 +43,24 @@ const Main = () => {
         <div className="recent-blog-wrapper">
 
 {/* start the fetch here */}
-{subset.map((item) => (
+{subset.map((blog) => (
   <>
-  <div key={item.id}>{item.title}</div>
-  <div >{item.description}</div>
-  <div >{item.body}</div>
-  <div >{item.author}</div>
-  <div >{item.date_created}</div>
+   {/* start */}
+    <div className="recent-blog-box shadow" tabIndex="0">
+      <figure className="img-box">
+        <img src={blog.image} alt="image" />
+      </figure>
+      <div className="content-box">
+        <Link className="tag-name">#tag{blog.id}</Link>
+        <Link className="blog-title" key={blog.id} to="/details">{blog.title}</Link>
+        <p className="blog-text">{blog.description}</p>
+        <div className="author-box">
+          <h5 className="author">{blog.author}</h5>
+          <p className="date">{blog.date_created}</p>
+        </div>
+      </div>
+    </div>
+    {/* end */}
   </>
 ))}
 <ReactPaginate
@@ -58,40 +68,9 @@ pageCount={totalPages}
 onPageChange={handlePageChange}
 forcePage={currentPage}/>
 
-{/* endthe fetch here */}
-          {/* start */}
-          <div className="recent-blog-box shadow" tabIndex="0">
-            <figure className="img-box">
-              <img src="" alt="image" />
-            </figure>
-            <div className="content-box">
-              <a href="#n" className="tag-name">#tag1</a>
-              <a href='#n' className="blog-title">Building microservices with Dropwizard, MongoDB & Docker Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus quos architecto consectetur quam ipsa dolorem, porro ipsum odio, sint nostrum molestiae, est dicta at maiores minus corrupti minima fuga blanditiis?</a>
-              <p className="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum recusandae facilis delectus eligendi enim eum sit tempore esse accusantium ab, quia vel aliquid at architecto accusamus suscipit minima repellendus error.</p>
-              <div className="author-box">
-                <h5 className="author">lorem yes</h5>
-                <p className="date">Jan 17, 2022</p>
-              </div>
-            </div>
-          </div>
-          {/* end */}
-          {/* start */}
-          <div className="recent-blog-box shadow">
-            <figure className="img-box">
-              <img src="" alt="image" />
-            </figure>
-            <div className="content-box">
-              <a href="#n" className="tag-name">#tag1</a>
-              <a href='#n' className="blog-title">Building microservices with Dropwizard, MongoDB & Docker</a>
-              <p className="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum recusandae facilis delectus eligendi enim eum sit tempore esse accusantium ab, quia vel aliquid at architecto accusamus suscipit minima repellendus error.</p>
-              <div className="author-box">
-                <h5 className="author">lorem yes</h5>
-                <p className="date">Jan 17, 2022</p>
-              </div>
-            </div>
-          </div>
-          {/* end */}
-
+{/* end the fetch here */}
+         
+        
         </div>
       </div>
       {/* end of main blogs section */}

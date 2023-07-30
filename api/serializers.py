@@ -13,7 +13,7 @@ class       BlogSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)
     class   Meta:
         model = Blog
-        fields = ['id', 'title', 'description', 'date_created', 'date_updated', 'body', 'author']
+        fields = ['id', 'title', 'description', 'date_created', 'date_updated', 'body', 'author', 'image']
         
 
 #comment serializer for user and blog to display all comments on a blog

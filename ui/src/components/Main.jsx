@@ -15,8 +15,9 @@ return (
       <div className="recent-blog-sec">
         <h1 className="title">Latest Blog Post</h1>
         <div className="recent-blog-wrapper">
+
           {/* start */}
-          <div className="recent-blog-box shadow">
+          <div className="recent-blog-box shadow" tabIndex="0">
             <figure className="img-box">
               <img src="" alt="image" />
             </figure>
@@ -47,38 +48,7 @@ return (
             </div>
           </div>
           {/* end */}
-          {/* start */}
-          <div className="recent-blog-box shadow">
-            <figure className="img-box">
-              <img src="" alt="image" />
-            </figure>
-            <div className="content-box">
-              <a href="#n" className="tag-name">#tag1</a>
-              <a href='#n' className="blog-title">Building microservices with Dropwizard, MongoDB & Docker</a>
-              <p className="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum recusandae facilis delectus eligendi enim eum sit tempore esse accusantium ab, quia vel aliquid at architecto accusamus suscipit minima repellendus error.</p>
-              <div className="author-box">
-                <h5 className="author">lorem yes</h5>
-                <p className="date">Jan 17, 2022</p>
-              </div>
-            </div>
-          </div>
-          {/* end */}
-          {/* start */}
-          <div className="recent-blog-box shadow">
-            <figure className="img-box">
-              <img src="" alt="image" />
-            </figure>
-            <div className="content-box">
-              <a href="#n" className="tag-name">#tag1</a>
-              <a href='#n' className="blog-title">Building microservices with Dropwizard, MongoDB & Docker</a>
-              <p className="blog-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum recusandae facilis delectus eligendi enim eum sit tempore esse accusantium ab, quia vel aliquid at architecto accusamus suscipit minima repellendus error.</p>
-              <div className="author-box">
-                <h5 className="author">lorem yes</h5>
-                <p className="date">Jan 17, 2022</p>
-              </div>
-            </div>
-          </div>
-          {/* end */}
+
         </div>
       </div>
       {/* end of main blogs section */}

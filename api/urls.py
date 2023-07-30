@@ -1,4 +1,4 @@
-from .views import BlogListView, BlogDetailView, BlogSearchView, CommentListView, ReplyListView, LikeListView, DislikeListView, CommentCreateView, ReplyCreateView, LikeCreateView, DislikeCreateView, UserCreateView
+from .views import BlogListView, BlogDetailView, BlogSearchView, CommentListView, ReplyListView, LikeListView, DislikeListView, CommentCreateView, ReplyCreateView, LikeCreateView, DislikeCreateView, UserCreateView, TagBlogListView, TagListView
 from django.urls import path
 
 
@@ -15,4 +15,6 @@ path('post/<int:blog_id>/comments/<int:comment_id>/replies/create/', ReplyCreate
 path('post/<int:blog_id>/likes/create/', LikeCreateView.as_view(), name='like_create'),
 path('post/<int:blog_id>/dislikes/create/', DislikeCreateView.as_view(), name='dislike_create'),
 path('users/create/', UserCreateView.as_view(), name='user_create'),
+path('tags/', TagListView.as_view(), name='tags'),
+path('tags/<slug:tag_slug>/', TagBlogListView.as_view(), name='tag_blogs'),
 ]

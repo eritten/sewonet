@@ -1,9 +1,21 @@
 from django.shortcuts import render
 from .models import Blog, Comment, Reply 
 from django.contrib.auth.models import User
-from .serializers import BlogSerializer, UserSerializer, CommentSerializer, ReplySerializer, LikeSerializer, DislikeSerializer
+from .serializers import BlogSerializer, UserSerializer, CommentSerializer, ReplySerializer, LikeSerializer, DislikeSerializer, TagSerializer
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
-
+# importing rest_framework filters
+# from rest_framework import filters
+# from django_filters.rest_framework import DjangoFilterBackend
+# from rest_framework.pagination import PageNumberPagination
+# from rest_framework.response import Response
+# from rest_framework import status
+# from rest_framework.views import APIView
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework.decorators import api_view, permission_classes
+# from rest_framework import generics
+# from rest_framework import mixins
+# importing tag model
+from taggit.models import Tag
 
 # Create your views here.
 
@@ -79,3 +91,14 @@ class UserCreateView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
+# creating view to display all tags
+class TagListView(ListAPIView):
+    serializer_class = TagSerializer
+    queryset = Tag.objects.all()
+    
+# creating view to display blogs by tag
+class TagBlogListView(ListAPIView):
+    serializer_class = BlogSerializer
+    def get_queryset(self):
+        tag_slug = self.kwargs['tag_slug']
+        return Blog.objects.filter(tags__slug=tag_slug)

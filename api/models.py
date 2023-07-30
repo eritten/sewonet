@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth.models import User
+# importing django taggit
+from taggit.managers import TaggableManager
+
+
 
 # Create your models here.
 
@@ -12,7 +16,7 @@ class Blog(models.Model):
     date_updated = models.DateTimeField('date updated')
     body = models.TextField()
     image = models.ImageField(upload_to='images/')
-    
+    tags = TaggableManager()    
     def __str__(self):
         return self.title
     

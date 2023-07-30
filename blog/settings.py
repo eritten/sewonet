@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     'corsheaders',
+    'taggit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -137,3 +138,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #corsheaders settings
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+# django taggit settings
+TAGGIT_CASE_INSENSITIVE = True

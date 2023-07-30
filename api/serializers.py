@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from .models import Blog, Comment, Like, Dislike, Reply
 from django.contrib.auth.models import User
+from taggit.models import Tag
+# creating for tag that will have a many to many relationship with blog
+class   TagSerializer(serializers.ModelSerializer):
+    class   Meta:
+        model = Tag
+        fields = ['id', 'name']
 
 
 # write foreign key serializer for user and blog
@@ -9,13 +15,14 @@ class   UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email']
         
-class       BlogSerializer(serializers.ModelSerializer):
+
+# creating a serializer for blog that will have a many to many relationship with tag and a foreign key relationship with user
+class   BlogSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
     class   Meta:
         model = Blog
-        fields = ['id', 'title', 'description', 'date_created', 'date_updated', 'body', 'author', 'image']
-        
-
+        fields = ['id', 'title', 'body', 'date_created', 'date_updated', 'author', 'image', 'tags']
 #comment serializer for user and blog to display all comments on a blog
 class   CommentSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
